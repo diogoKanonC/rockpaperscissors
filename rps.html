@@ -55,8 +55,10 @@
             }
             else{
                 message = playerSelection + " is not a valid play";
+                isDraw = true;
             }
             console.log(message);
+            console.log("The result is " + winCount + " - " + loseCount);
         }
 
         function computerPlay(){
@@ -75,10 +77,13 @@
                     i--;
                     isDraw = false;
                 }
+                if(winCount - loseCount > 4 - i || loseCount - winCount > 4 - i){
+                    i+= 10;
+                }
             }
 
             if(winCount > loseCount){
-                console.log("GANHAMOS: " + winCount + " - " + loseCount + "CRRRRRRRRRRRRRRRRRRL ");
+                console.log("GANHAMOS: " + winCount + " - " + loseCount + " CRRRRRRRRRRRRRRRRRRL ");
             }
             else{
                 console.log("Também nunca gostei deste jogo: " + winCount + " - " + loseCount);
