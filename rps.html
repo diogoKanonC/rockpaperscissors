@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RPS</title>
+    </head>
+    <body>
+        <h1>Sheeeeeeeeeeeeeesh</h1>
+    </body>
+    <script>
+        let winCount = 0;
+        let loseCount = 0;
+        let isDraw = false;
+
+        function playRound(playerSelection, computerSelection){
+            let winMessage = "You win, go off KING";
+            let loseMessage = "It's ok, we'll get them next time";
+            let draw = "a draw?????";
+            let message = "";
+
+            if(playerSelection == 'rock' && computerSelection == 'Rock'){
+                message = draw + " Rock equals Rock";
+                isDraw = true;
+            }
+            else if(playerSelection == 'paper' && computerSelection == 'Paper'){
+                message = draw + " Paper equals Paper";
+                isDraw = true
+            }
+            else if(playerSelection == 'scissors' && computerSelection == 'Scissors'){
+                message = draw + " Scissors equals Scissors";
+                isDraw = true
+            }
+            else if(playerSelection == 'scissors' && computerSelection == 'Paper'){
+                message = winMessage + " Scissors cut paper up";
+                winCount += 1;
+            }
+            else if(playerSelection == 'scissors' && computerSelection == 'Rock'){
+                message = loseMessage + " Scissors get fucking crushed m8";
+                loseCount += 1;
+            }
+            else if(playerSelection == 'paper' && computerSelection == 'Rock'){
+                message = winMessage + " Paper just wraps the shitty ROck";
+                winCount += 1;
+            }
+            else if(playerSelection == 'paper' && computerSelection == 'Scissors'){
+                message = loseMessage + " Scissors cut my life into pieces - Paper";
+                loseCount += 1;
+            }
+            else if(playerSelection == 'rock' && computerSelection == 'Scissors'){
+                message = winMessage + " Rock smash Scissors";
+                winCount += 1;
+            }
+            else if(playerSelection == 'rock' && computerSelection == 'Paper'){
+                message = loseMessage + " Rock gets fucking covered by Paper";
+                loseCount += 1;
+            }
+            else{
+                message = playerSelection + " is not a valid play";
+            }
+            console.log(message);
+        }
+
+        function computerPlay(){
+            const plays = ['Rock', 'Paper', 'Scissors'];
+            let randIndex = Math.floor(Math.random() * 3);
+            return plays[randIndex];
+        }
+
+        function game(){
+
+            for(i = 0; i < 5; i++){
+                let playerSelection = prompt("Choose: ").toLowerCase();
+                let computerSelection = computerPlay();
+                playRound(playerSelection, computerSelection);
+                if(isDraw){
+                    i--;
+                    isDraw = false;
+                }
+            }
+
+            if(winCount > loseCount){
+                console.log("GANHAMOS: " + winCount + " - " + loseCount + "CRRRRRRRRRRRRRRRRRRL ");
+            }
+            else{
+                console.log("Também nunca gostei deste jogo: " + winCount + " - " + loseCount);
+            }
+        }
+        
+        game();
+    </script>
+</html>
