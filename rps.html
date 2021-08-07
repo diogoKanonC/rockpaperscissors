@@ -1,95 +1,99 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>RPS</title>
-    </head>
-    <body>
-        <h1>Sheeeeeeeeeeeeeesh</h1>
-    </body>
-    <script>
-        let winCount = 0;
-        let loseCount = 0;
-        let isDraw = false;
 
-        function playRound(playerSelection, computerSelection){
-            let winMessage = "You win, go off KING";
-            let loseMessage = "It's ok, we'll get them next time";
-            let draw = "a draw?????";
-            let message = "";
+<head>
+    <title>RPS</title>
+</head>
 
-            if(playerSelection == 'rock' && computerSelection == 'Rock'){
-                message = draw + " Rock equals Rock";
-                isDraw = true;
-            }
-            else if(playerSelection == 'paper' && computerSelection == 'Paper'){
-                message = draw + " Paper equals Paper";
-                isDraw = true
-            }
-            else if(playerSelection == 'scissors' && computerSelection == 'Scissors'){
-                message = draw + " Scissors equals Scissors";
-                isDraw = true
-            }
-            else if(playerSelection == 'scissors' && computerSelection == 'Paper'){
-                message = winMessage + " Scissors cut paper up";
-                winCount += 1;
-            }
-            else if(playerSelection == 'scissors' && computerSelection == 'Rock'){
-                message = loseMessage + " Scissors get fucking crushed m8";
-                loseCount += 1;
-            }
-            else if(playerSelection == 'paper' && computerSelection == 'Rock'){
-                message = winMessage + " Paper just wraps the shitty ROck";
-                winCount += 1;
-            }
-            else if(playerSelection == 'paper' && computerSelection == 'Scissors'){
-                message = loseMessage + " Scissors cut my life into pieces - Paper";
-                loseCount += 1;
-            }
-            else if(playerSelection == 'rock' && computerSelection == 'Scissors'){
-                message = winMessage + " Rock smash Scissors";
-                winCount += 1;
-            }
-            else if(playerSelection == 'rock' && computerSelection == 'Paper'){
-                message = loseMessage + " Rock gets fucking covered by Paper";
-                loseCount += 1;
-            }
-            else{
-                message = playerSelection + " is not a valid play";
-                isDraw = true;
-            }
-            console.log(message);
-            console.log("The result is " + winCount + " - " + loseCount);
+<body>
+    <h1>Sheeeeeeeeeeeeeesh</h1>
+</body>
+<script>
+    let winCount = 0;
+    let loseCount = 0;
+    let isDraw = false;
+
+    function playRound(playerSelection, computerSelection) {
+        let winMessage = "You win, go off KING. " + playerSelection + " wins against " + computerSelection;
+        let loseMessage = "It's ok, we'll get them next time. " + playerSelection + " loses to " + computerSelection;
+        let draw = "a draw????? " + playerSelection + " equals " + computerSelection;
+        let message = "";
+
+        if (playerSelection == computerSelection) {
+            message = draw;
+            isDraw = true;
         }
 
-        function computerPlay(){
-            const plays = ['Rock', 'Paper', 'Scissors'];
-            let randIndex = Math.floor(Math.random() * 3);
-            return plays[randIndex];
-        }
-
-        function game(){
-
-            for(i = 0; i < 5; i++){
-                let playerSelection = prompt("Choose: ").toLowerCase();
-                let computerSelection = computerPlay();
-                playRound(playerSelection, computerSelection);
-                if(isDraw){
-                    i--;
-                    isDraw = false;
-                }
-                if(winCount - loseCount > 4 - i || loseCount - winCount > 4 - i){
-                    i+= 10;
-                }
+        else if (playerSelection == 'Scissors') {
+            if (computerSelection == 'Paper') {
+                message = winMessage;
+                winCount += 1;
             }
-
-            if(winCount > loseCount){
-                console.log("GANHAMOS: " + winCount + " - " + loseCount + " CRRRRRRRRRRRRRRRRRRL ");
-            }
-            else{
-                console.log("Também nunca gostei deste jogo: " + winCount + " - " + loseCount);
+            else {
+                message = loseMessage;
+                loseCount += 1;
             }
         }
-        
-        game();
-    </script>
+        else if (playerSelection == 'Paper') {
+            if (computerSelection == 'Rock') {
+                message = winMessage;
+                winCount += 1;
+            }
+            else {
+                message = loseMessage;
+                loseCount += 1;
+            }
+        }
+        else if (playerSelection == 'Rock') {
+            if (computerSelection == 'Scissors') {
+                message = winMessage;
+                winCount += 1;
+            }
+            else {
+                message = loseMessage;
+                loseCount += 1;
+            }
+        }
+
+        else {
+            message = playerSelection + " is not a valid play";
+            isDraw = true;
+        }
+        console.log(message);
+        console.log("The result is " + winCount + " - " + loseCount);
+    }
+
+    function computerPlay() {
+        const plays = ['Rock', 'Paper', 'Scissors'];
+        let randIndex = Math.floor(Math.random() * 3);
+        return plays[randIndex];
+    }
+
+    function game() {
+
+        for (i = 0; i < 5; i++) {
+            let playerSelection = prompt("Choose: ").toLowerCase();
+            playerSelection = playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase())
+            let computerSelection = computerPlay();
+            playRound(playerSelection, computerSelection);
+            if (isDraw) {
+                i--;
+                isDraw = false;
+            }
+            if (winCount - loseCount > 4 - i || loseCount - winCount > 4 - i) {
+                i += 10;
+            }
+        }
+
+        if (winCount > loseCount) {
+            console.log("GANHAMOS: " + winCount + " - " + loseCount + " CRRRRRRRRRRRRRRRRRRL ");
+        }
+        else {
+            console.log("Também nunca gostei deste jogo: " + winCount + " - " + loseCount);
+        }
+    }
+
+    game();
+</script>
+
 </html>
