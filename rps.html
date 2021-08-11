@@ -2,7 +2,9 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
     <title>RPS</title>
+    <link rel="stylesheet" href="rps.css">
 </head>
 
 <body>
@@ -71,18 +73,13 @@
 
     function game() {
 
-        for (i = 0; i < 5; i++) {
-            let playerSelection = prompt("Choose: ").toLowerCase();
-            playerSelection = playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase())
-            let computerSelection = computerPlay();
-            playRound(playerSelection, computerSelection);
-            if (isDraw) {
-                i--;
-                isDraw = false;
-            }
-            if (winCount - loseCount > 4 - i || loseCount - winCount > 4 - i) {
-                i += 10;
-            }
+        let playerSelection = prompt("Choose: ").toLowerCase();
+        playerSelection = playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase())
+        let computerSelection = computerPlay();
+        playRound(playerSelection, computerSelection);
+        if (isDraw) {
+            isDraw = false;
+            return game();
         }
 
         if (winCount > loseCount) {
