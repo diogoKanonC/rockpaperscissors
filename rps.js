@@ -64,7 +64,6 @@ const results = document.querySelector('#results');
 
 const computerSide = document.querySelector('.computerSide');
 const computerPickedTtile = document.createElement('h1');
-computerPickedTtile.textContent = "Computer Picked";
 computerSide.appendChild(computerPickedTtile);
 
 const computerChoice = document.createElement('button');
@@ -90,7 +89,7 @@ btnpressed.forEach((button) => {
     // and for each one we add a 'click' listener
     button.addEventListener('click', () => {
         let computerSelection = computerPlay();
-
+        computerPickedTtile.textContent = "Computer Picked";
         computerChoiceImg.setAttribute("src", `./${computerSelection}.jpg`);
         computerChoice.appendChild(computerChoiceImg);
         computerChoice.setAttribute("id", "computerSelection");
