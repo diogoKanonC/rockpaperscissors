@@ -62,14 +62,24 @@ function computerPlay() {
 
 const results = document.querySelector('#results');
 
-const pinkdiv = document.createElement('div');
-pinkdiv.textContent = "";
+const computerSide = document.querySelector('.computerSide');
+const computerPickedTtile = document.createElement('h1');
+computerPickedTtile.textContent = "Computer Picked";
+computerSide.appendChild(computerPickedTtile);
+
+const computerChoice = document.createElement('button');
+computerChoice.style.color = "red";
+const computerChoiceImg = document.createElement('img');
+computerChoice.classList.add('button');
+
 const leftdiv = document.createElement('div');
+const resultsdiv = document.createElement('div');
 const rightdiv = document.createElement('div');
+
 const currentScore = document.createElement('h2');
 
 leftdiv.classList.add('results2');
-pinkdiv.classList.add('results');
+resultsdiv.classList.add('results');
 rightdiv.classList.add('results2');
 
 let numberOfplays = 5;
@@ -79,7 +89,14 @@ btnpressed.forEach((button) => {
 
     // and for each one we add a 'click' listener
     button.addEventListener('click', () => {
-        let result = playRound(button.id, computerPlay());
+        let computerSelection = computerPlay();
+
+        computerChoiceImg.setAttribute("src", `./${computerSelection}.jpg`);
+        computerChoice.appendChild(computerChoiceImg);
+        computerChoice.setAttribute("id", "computerSelection");
+        computerSide.appendChild(computerChoice);
+
+        let result = playRound(button.id, computerSelection);
         if (isDraw) {
             isDraw = false;
             numberOfplays++;
@@ -90,23 +107,26 @@ btnpressed.forEach((button) => {
 
         currentScore.textContent = winCount + " - " + loseCount;
 
-        if(winCount > loseCount + numberOfplays){
+        if (winCount > loseCount + numberOfplays) {
             result = championMessage;
             winCount = 0;
             loseCount = 0;
             numberOfplays = 5;
         }
-        else if(loseCount > winCount + numberOfplays){
+        else if (loseCount > winCount + numberOfplays) {
             result = loserMessage;
             winCount = 0;
             loseCount = 0;
             numberOfplays = 5;
         }
 
-        pinkdiv.textContent = result;
-        pinkdiv.appendChild(currentScore);
+        resultsdiv
+            .textContent = result;
+        resultsdiv
+            .appendChild(currentScore);
         results.appendChild(leftdiv);
-        results.appendChild(pinkdiv);
+        results.appendChild(resultsdiv
+        );
         results.appendChild(rightdiv);
     });
 });
