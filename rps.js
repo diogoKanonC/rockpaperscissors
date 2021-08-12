@@ -1,20 +1,13 @@
 let winCount = 0;
 let loseCount = 0;
 let isDraw = false;
-
-const btn = document.querySelectorAll('.button');
-btn.forEach((button) => {
-
-    // and for each one we add a 'click' listener
-    button.addEventListener('click', () => {
-      alert("SHEEEEEEEESH");
-    });
-  });
+const championMessage = "I WANT TO THANK MY MOMMA FOR THIS WIN";
+const loserMessage = "THIS GAME ALWAYS SUCKED";
 
 function playRound(playerSelection, computerSelection) {
     let winMessage = "You win, go off KING. " + playerSelection + " wins against " + computerSelection;
     let loseMessage = "It's ok, we'll get them next time. " + playerSelection + " loses to " + computerSelection;
-    let draw = "a draw????? " + playerSelection + " equals " + computerSelection;
+    let draw = "Alright, we'll call it a Draw.  " + playerSelection + " equals " + computerSelection;
     let message = "";
 
     if (playerSelection == computerSelection) {
@@ -57,8 +50,8 @@ function playRound(playerSelection, computerSelection) {
         message = playerSelection + " is not a valid play";
         isDraw = true;
     }
-    console.log(message);
-    console.log("The result is " + winCount + " - " + loseCount);
+    return message;
+    //console.log("The result is " + winCount + " - " + loseCount);
 }
 
 function computerPlay() {
@@ -67,23 +60,53 @@ function computerPlay() {
     return plays[randIndex];
 }
 
-function game() {
+const results = document.querySelector('#results');
 
-    let playerSelection = prompt("Choose: ").toLowerCase();
-    playerSelection = playerSelection.replace(playerSelection[0], playerSelection[0].toUpperCase())
-    let computerSelection = computerPlay();
-    playRound(playerSelection, computerSelection);
-    if (isDraw) {
-        isDraw = false;
-        return game();
-    }
+const pinkdiv = document.createElement('div');
+pinkdiv.textContent = "";
+const leftdiv = document.createElement('div');
+const rightdiv = document.createElement('div');
+const currentScore = document.createElement('h2');
 
-    if (winCount > loseCount) {
-        console.log("GANHAMOS: " + winCount + " - " + loseCount + " CRRRRRRRRRRRRRRRRRRL ");
-    }
-    else {
-        console.log("Também nunca gostei deste jogo: " + winCount + " - " + loseCount);
-    }
-}
+leftdiv.classList.add('results2');
+pinkdiv.classList.add('results');
+rightdiv.classList.add('results2');
 
-game();
+let numberOfplays = 5;
+
+const btnpressed = document.querySelectorAll('button');
+btnpressed.forEach((button) => {
+
+    // and for each one we add a 'click' listener
+    button.addEventListener('click', () => {
+        let result = playRound(button.id, computerPlay());
+        if (isDraw) {
+            isDraw = false;
+            numberOfplays++;
+        }
+
+        numberOfplays--;
+
+
+        currentScore.textContent = winCount + " - " + loseCount;
+
+        if(winCount > loseCount + numberOfplays){
+            result = championMessage;
+            winCount = 0;
+            loseCount = 0;
+            numberOfplays = 5;
+        }
+        else if(loseCount > winCount + numberOfplays){
+            result = loserMessage;
+            winCount = 0;
+            loseCount = 0;
+            numberOfplays = 5;
+        }
+
+        pinkdiv.textContent = result;
+        pinkdiv.appendChild(currentScore);
+        results.appendChild(leftdiv);
+        results.appendChild(pinkdiv);
+        results.appendChild(rightdiv);
+    });
+});
